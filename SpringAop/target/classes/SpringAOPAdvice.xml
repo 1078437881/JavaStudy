@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="customerService" class="com.wyb.spring.aop.advice.CustomerService">
+		<property name="name" value="wanyibo"></property>
+		<property name="url" value="this is wanyibo's url"></property>
+	</bean>
+	<bean id="hijackBeforeMethodBean" class="com.wyb.spring.aop.advice.HijackBeforeMethod">
+	</bean>
+	<bean id="hijackAfterMethodBean" class="com.wyb.spring.aop.advice.HijackAfterMethod">
+	</bean>
+	<bean id="hijackThrowExceptionBean" class="com.wyb.spring.aop.advice.HijackTHrowExceptionMethod">
+	</bean>
+	<bean id="hijackAroundMethodBean" class="com.wyb.spring.aop.advice.HijackAroundMethod">
+	</bean>
+	<bean id="customerServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="customerService"></property>
+		<property name="interceptorNames">
+			<list>
+				<value>hijackAfterMethodBean</value>
+				<value>hijackBeforeMethodBean</value>
+				<value>hijackThrowExceptionBean</value>
+				<value>hijackAroundMethodBean</value>
+			</list>
+		</property>
+	</bean>
+</beans>

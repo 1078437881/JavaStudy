@@ -1,0 +1,5 @@
+除此之外，Spring 有三个与 @Component 等效的注解：
+
+@Controller:对应表现层的 Bean，也就是 Action 。
+@Service:对应的是业务层 Bean 。
+@Repository:对应数据访问层 Bean 。

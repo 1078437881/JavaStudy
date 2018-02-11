@@ -1,0 +1,96 @@
+package com.wyb.reflect;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+public class ClassUtil {
+
+	/** 
+	 * 打印类的成员函数的信息
+	 * @param obj该对象所属类的信息
+	 */
+	public static void printClassMessage(Object obj) {
+		// 要获取类的信息 首先要获取类的类类型
+		Class c = obj.getClass();// 传递的是哪个子类的对象,c就是该子类的类类型
+		// 获取类的名称
+		System.out.println("类的名称是:" + c.getName());
+
+		/*
+		 * Method类,方法对象 一个成员方法就是一个Method的对象
+		 * getMethods()方法获取的是所有的public的函数,包括父类继承而来的
+		 * getDeclaredMethods()获取的是所有该类自己声明的方法,不论访问权限
+		 */
+		Method[] ms = c.getMethods();
+		Method[] ms1 = c.getDeclaredMethods();
+
+		for (int i = 0; i < ms.length; i++) {
+			// 得到方法的返回值类型的类类型
+			Class returnType = ms[i].getReturnType();
+			System.out.print(returnType.getName() + " ");
+			// 得到方法的名称
+			System.out.print(ms[i].getName() + "(");
+			// 获取参数类型-->得到的是参数类表的类型的类类型
+			Class[] paramTypes = ms[i].getParameterTypes();
+			for (int j = 0; j < paramTypes.length; j++) {
+				if (j == paramTypes.length - 1) {
+					System.out.print(paramTypes[j].getName()+")\n");
+				} else {
+					System.out.print(paramTypes[j].getName() + ",");
+				}
+			}
+		}
+		
+	}
+
+	/**
+	 * 打印类的成员变量的信息
+	 * @param obj
+	 */
+	public static void printFieldMessage(Object obj) {
+		
+		Class c = obj.getClass();// 传递的是哪个子类的对象,c就是该子类的类类型
+		// 获取类的名称
+		System.out.println("类的名称是:" + c.getName());
+		/*
+		 * 成员变量也是对象
+		 * java.lang.reflect.Field
+		 * Field类封装了关于成员变量的操作
+		 * getFields()方法获取的是所有public的成员变量的信息
+		 * getDeclaredField获取的是该类自己声明的成员变量的信息
+		 */
+		//Filed[] fs = c.getFields();
+		Field[] fs = c.getDeclaredFields();
+		for(Field field:fs){
+			//得到成员变量类型的类类型
+			Class fieldType = field.getType();
+			String typeName = fieldType.getName();
+			//得到成员边量的名称
+			String fieldName = field.getName();
+			System.out.println(typeName+" "+fieldName);
+		}
+	}
+	
+	public static void printConMessage(Object obj){
+		Class c = obj.getClass();
+		/*
+		 * 构造函数也是对象
+		 * java.lang.Constructor中封装了构造函数的信息
+		 */
+//		Constructor[] cs = c.getConstructors();
+		Constructor[] cs = c.getDeclaredConstructors();
+		for(Constructor constructor:cs){
+			System.out.print(constructor.getName()+"(");
+			//获取构造函数的参数列表-->得到的是参数列表的类类型
+			Class[] paramTypes = constructor.getParameterTypes();
+			for(int i=0;i<paramTypes.length;i++){
+				if(i==paramTypes.length-1){
+					System.out.print(paramTypes[i].getName()+")\n");
+				}else{
+					System.out.print(paramTypes[i].getName()+",");
+				}
+				
+			}
+		}
+	}
+}
