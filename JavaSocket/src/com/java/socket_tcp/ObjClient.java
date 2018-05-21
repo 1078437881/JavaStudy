@@ -24,7 +24,7 @@ public class ObjClient {
 			OutputStream os = socket.getOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(os);
 			oos.writeObject(new User(1, 15, "张三", "123456"));
-//			oos.writeObject(new User(2, 18,"赵明","233333"));
+			oos.writeObject(new User(2, 18,"赵明","233333"));
 			oos.flush();
 			socket.shutdownOutput();
 
@@ -35,13 +35,19 @@ public class ObjClient {
 			while ((info = br.readLine()) != null) {
 				System.out.println("服务端的信息:" + info);
 			}
-		
-//			ObjectInputStream ois = new ObjectInputStream(is);
-//			System.out.println("服务端返回:" + (User) ois.readObject());
+//		
+			ObjectInputStream ois = new ObjectInputStream(is);
+			try {
+				System.out.println("服务端返回:" + (User) ois.readObject());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			socket.shutdownInput();
 			oos.close();
 			os.close();
+			ois.close();
 			is.close();
 			br.close();
 			socket.close();

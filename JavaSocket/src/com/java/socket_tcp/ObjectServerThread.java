@@ -30,12 +30,15 @@ public class ObjectServerThread implements Runnable {
 			ObjectInputStream ois = new ObjectInputStream(is);
 			// readObject()方法必须保证服务端和客户端的User包名一致,否则会出现找不到类的错误
 			user = (User) ois.readObject();
-			System.out.println("客户端发送的对象" + user);
+			User user1 = (User)ois.readObject();
+			System.out.println("客户端发送的对象:" + user);
+			System.out.println("客户端发送的对象:" + user1);
 			socket.shutdownInput();// 关闭套接字的输入流
 
 			os = socket.getOutputStream();
 			pw = new PrintWriter(os);
 			pw.println("欢迎登陆!");
+			pw.println(user.toString());
 			pw.flush();
 			ObjectOutputStream oos = new ObjectOutputStream(os);
 			oos.writeObject(user);
