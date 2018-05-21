@@ -23,14 +23,14 @@ public class ObjClient {
 			// 获取该Socket的输出流,用来向服务器发送信息
 			OutputStream os = socket.getOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(os);
-			oos.writeObject(new User(1, 15, "Tome", "123456"));
+			oos.writeObject(new User(1, 15, "张三", "123456"));
 //			oos.writeObject(new User(2, 18,"赵明","233333"));
 			oos.flush();
 			socket.shutdownOutput();
 
 			// 获取输入流,取得服务器的信息
 			InputStream is = socket.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			BufferedReader br = new BufferedReader(new InputStreamReader(is,"UTF-8"));
 			String info = null;
 			while ((info = br.readLine()) != null) {
 				System.out.println("服务端的信息:" + info);

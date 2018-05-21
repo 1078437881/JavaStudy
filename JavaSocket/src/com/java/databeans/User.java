@@ -50,7 +50,7 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "User[ id="+id+" name="+age+" password="+password+ " age="+age+"]";
+		return "User[ id="+id+" name="+name+" password="+password+ " age="+age+"]";
 	}
 
 }
